@@ -26,7 +26,6 @@ public class User implements UserOperation, Parcelable {
     public static final int FOLLOW_ERROR = -1;
     public static final int UN_FOLLOW_ERROR = -2;
     public static final int GET_FOLLOWEE_ERROR = -3;
-    public static final int CHECK_FOLLOWEE_ERROR = -4;
 
     private AVUser user;
 
@@ -82,7 +81,7 @@ public class User implements UserOperation, Parcelable {
 
     @Override
     public String getStatusesCount() {
-        // TODO: 6/21/16
+        // TODO: 6/25/16
         return null;
     }
 
@@ -101,15 +100,15 @@ public class User implements UserOperation, Parcelable {
                 @Override
                 public void done(List<AVUser> list, AVException e) {
                     if (e == null && list != null && list.size() == 1) {
-                        callback.onSuccess(null);
+                        callback.onSuccess(true);
                     } else {
-                        callback.onFailed(CHECK_FOLLOWEE_ERROR, null);
+                        callback.onSuccess(false);
                     }
                 }
             });
         } catch (AVException e) {
             e.printStackTrace();
-            callback.onFailed(CHECK_FOLLOWEE_ERROR, null);
+            callback.onSuccess(false);
         }
     }
 

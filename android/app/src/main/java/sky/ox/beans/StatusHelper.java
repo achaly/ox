@@ -75,17 +75,6 @@ public final class StatusHelper {
     }
 
     public static void sendStatus(Status status, Callback callback) {
-//        status.toAVStatus().sendInBackground(new SaveCallback() {
-//            @Override
-//            public void done(AVException e) {
-//                if (e == null) {
-//                    callback.onSuccess(null);
-//                } else {
-//                    callback.onFailed(Status.SEND_STATUS_ERROR, null);
-//                }
-//            }
-//        });
-
         status.toAVObject().saveInBackground(new SaveCallback() {
             @Override
             public void done(AVException e) {
@@ -138,46 +127,6 @@ public final class StatusHelper {
                 }
             });
 
-
-
-//            AVStatusQuery query = new AVStatusQuery();
-//            if (user != null) {
-//                query.setOwner(user.getAVUser());
-//            }
-//            query.setInboxType(inboxType);
-//            query.setLimit(50);
-//            query.orderByDescending("updatedAt");
-//            query.include("source");
-//            query.findInBackground(new FindCallback<AVStatus>() {
-//                @Override
-//                public void done(List<AVStatus> list, AVException e) {
-//                    if (e == null) {
-//                        Observable.from(list)
-//                                .filter(new Func1<AVStatus, Boolean>() {
-//                                    @Override
-//                                    public Boolean call(AVStatus avStatus) {
-//                                        return avStatus != null;
-//                                    }
-//                                })
-//                                .map(new Func1<AVStatus, Status>() {
-//                                    @Override
-//                                    public Status call(AVStatus avStatus) {
-//                                        return new Status(avStatus);
-//                                    }
-//                                })
-//                                .toList()
-//                                .subscribe(new Action1<List<Status>>() {
-//                                    @Override
-//                                    public void call(List<Status> statuses) {
-//                                        callback.onSuccess(statuses);
-//                                    }
-//                                });
-//
-//                    } else {
-//                        callback.onFailed(Status.GET_INBOX_ALL_LIST_ERROR, null);
-//                    }
-//                }
-//            });
         } catch (Throwable e) {
             e.printStackTrace();
             callback.onFailed(Status.GET_INBOX_ALL_LIST_ERROR, null);
@@ -191,7 +140,6 @@ public final class StatusHelper {
             query.setLimit(50);
             query.orderByDescending("updatedAt");
             query.whereEqualTo(Status.INBOX_TYPE_KEY, InboxType.ALL);
-//            query.include("source");
             query.findInBackground(new FindCallback<AVObject>() {
                 @Override
                 public void done(List<AVObject> list, AVException e) {
@@ -229,72 +177,42 @@ public final class StatusHelper {
     }
 
     public static void getStatusList(User user, Callback callback) {
-
         try {
             AVQuery<AVObject> query = AVQuery.getQuery(Status.CLASS_NAME);
             query.setLimit(50);
+            query.whereEqualTo(Status.SOURCE_KEY, user.getAVUser());
             query.orderByDescending("updatedAt");
             query.include(Status.SOURCE_KEY);
             query.findInBackground(new FindCallback<AVObject>() {
                 @Override
                 public void done(List<AVObject> list, AVException e) {
-                    Observable.from(list)
-                            .filter(new Func1<AVObject, Boolean>() {
-                                @Override
-                                public Boolean call(AVObject avStatus) {
-                                    return avStatus != null;
-                                }
-                            })
-                            .map(new Func1<AVObject, Status>() {
-                                @Override
-                                public Status call(AVObject avStatus) {
-                                    return new Status(avStatus);
-                                }
-                            })
-                            .toList()
-                            .subscribe(new Action1<List<Status>>() {
-                                @Override
-                                public void call(List<Status> statuses) {
-                                    callback.onSuccess(statuses);
-                                }
-                            });
+                    if (e == null) {
+                        Observable.from(list)
+                                .filter(new Func1<AVObject, Boolean>() {
+                                    @Override
+                                    public Boolean call(AVObject avStatus) {
+                                        return avStatus != null;
+                                    }
+                                })
+                                .map(new Func1<AVObject, Status>() {
+                                    @Override
+                                    public Status call(AVObject avStatus) {
+                                        return new Status(avStatus);
+                                    }
+                                })
+                                .toList()
+                                .subscribe(new Action1<List<Status>>() {
+                                    @Override
+                                    public void call(List<Status> statuses) {
+                                        callback.onSuccess(statuses);
+                                    }
+                                });
+                    } else {
+                        callback.onFailed(Status.GET_STATUS_LIST_ERROR, null);
+                    }
                 }
             });
 
-
-//            AVStatusQuery query = AVStatus.statusQuery(user.getAVUser());
-//            query.setLimit(50);
-//            query.orderByDescending("updatedAt");
-//            query.findInBackground(new FindCallback<AVStatus>() {
-//                @Override
-//                public void done(List<AVStatus> list, AVException e) {
-//                    if (e == null) {
-//                        Observable.from(list)
-//                                .filter(new Func1<AVStatus, Boolean>() {
-//                                    @Override
-//                                    public Boolean call(AVStatus avStatus) {
-//                                        return avStatus != null;
-//                                    }
-//                                })
-//                                .map(new Func1<AVStatus, Status>() {
-//                                    @Override
-//                                    public Status call(AVStatus avStatus) {
-//                                        return new Status(avStatus);
-//                                    }
-//                                })
-//                                .toList()
-//                                .subscribe(new Action1<List<Status>>() {
-//                                    @Override
-//                                    public void call(List<Status> statuses) {
-//                                        callback.onSuccess(statuses);
-//                                    }
-//                                });
-//
-//                    } else {
-//                        callback.onFailed(Status.GET_STATUS_LIST_ERROR, null);
-//                    }
-//                }
-//            });
         } catch (Throwable e) {
             e.printStackTrace();
             callback.onFailed(Status.GET_STATUS_LIST_ERROR, null);
@@ -303,7 +221,8 @@ public final class StatusHelper {
 
     public static void getStatusCount(User user, Callback callback) {
         try {
-            AVStatusQuery query = AVStatus.statusQuery(user.getAVUser());
+            AVQuery<AVObject> query = AVQuery.getQuery(Status.CLASS_NAME);
+            query.whereEqualTo(Status.SOURCE_KEY, user.getAVUser());
             query.countInBackground(new CountCallback() {
                 @Override
                 public void done(int i, AVException e) {
@@ -314,6 +233,7 @@ public final class StatusHelper {
                     }
                 }
             });
+
         } catch (Throwable e) {
             e.printStackTrace();
             callback.onFailed(Status.GET_STATUS_LIST_COUNT_ERROR, null);

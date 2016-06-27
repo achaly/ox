@@ -6,7 +6,13 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
+
+import com.apkfuns.logutils.LogUtils;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.RefreshCallback;
 
 import java.util.List;
 
@@ -44,7 +50,6 @@ public class UserDetailActivity extends BaseActivity {
 
         initViews();
         getStatusList();
-        checkFollow();
     }
 
     private void initViews() {
@@ -72,6 +77,23 @@ public class UserDetailActivity extends BaseActivity {
 
     private void getStatusList() {
         if (user != null) {
+            user.getAVUser().refreshInBackground(new RefreshCallback<AVObject>() {
+                @Override
+                public void done(AVObject object, AVException e) {
+                    if (e == null) {
+                        LogUtils.d("update user.");
+
+                        toolbar.setTitle(user.getUsername());
+                        userItemView.setImage(user.getAvatarUrl());
+                        userItemView.setName(user.getUsername());
+
+                        checkFollow();
+
+                    } else {
+                        ToastUtil.show(R.string.get_data_failed);
+                    }
+                }
+            });
             user.getStatusList(new Callback() {
                 @Override
                 public void onSuccess(Object object) {
@@ -89,16 +111,20 @@ public class UserDetailActivity extends BaseActivity {
 
     private void checkFollow() {
         User me = AccountHelper.getCurrentUser();
-        if (user != null && me != null) {
+        if (user != null && me != null && !TextUtils.equals(user.getId(), me.getId())) {
             me.hasFollowUser(user, new Callback() {
                 @Override
                 public void onSuccess(Object object) {
-                    setUnFollowBtn();
+                    boolean b = (boolean) object;
+                    if (b) {
+                        setUnFollowBtn();
+                    } else {
+                        setFollowBtn();
+                    }
                 }
 
                 @Override
                 public void onFailed(int code, String message) {
-                    setFollowBtn();
                 }
             });
         }

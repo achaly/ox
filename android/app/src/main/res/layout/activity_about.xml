@@ -7,9 +7,57 @@
 
     <include layout="@layout/toolbar" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="abcout" />
+        android:paddingTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:padding="6dp"
+            android:textSize="32sp"
+            android:text="@string/app_name" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:padding="6dp"
+            android:textSize="32sp"
+            android:text="Sky" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:padding="6dp"
+            android:textSize="32sp"
+            android:text="achaly@163.com" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:padding="6dp"
+            android:textSize="32sp"
+            android:text="WeChat: achaly" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:padding="6dp"
+            android:textSize="24sp"
+            android:text="https://github.com/achaly" />
+
+    </LinearLayout>
 
 </LinearLayout>

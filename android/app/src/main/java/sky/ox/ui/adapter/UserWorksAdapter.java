@@ -13,6 +13,8 @@ import java.util.List;
 import sky.ox.R;
 import sky.ox.beans.Status;
 import sky.ox.beans.StatusType;
+import sky.ox.ui.activity.PlayAudioActivity;
+import sky.ox.ui.activity.PlayVideoActivity;
 import sky.ox.ui.activity.ShowImageTextActivity;
 import sky.ox.ui.view.WorkItemView;
 import sky.ox.utils.ToastUtil;
@@ -52,7 +54,9 @@ public class UserWorksAdapter extends RecyclerView.Adapter<UserWorksAdapter.Work
                 holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ToastUtil.show(R.string.not_implement);
+                        Intent intent = new Intent(v.getContext(), PlayVideoActivity.class);
+                        intent.putExtra("status", status);
+                        v.getContext().startActivity(intent);
                     }
                 });
                 break;
@@ -62,7 +66,9 @@ public class UserWorksAdapter extends RecyclerView.Adapter<UserWorksAdapter.Work
                 holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ToastUtil.show(R.string.not_implement);
+                        Intent intent = new Intent(v.getContext(), PlayAudioActivity.class);
+                        intent.putExtra("status", status);
+                        v.getContext().startActivity(intent);
                     }
                 });
                 break;

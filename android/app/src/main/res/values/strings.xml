@@ -47,5 +47,7 @@
     <string name="add_follow_text">添加关注</string>
     <string name="please_login">请先登录</string>
     <string name="about">关于</string>
+    <string name="please_input_title">请输入题目</string>
+    <string name="please_input_message">请输入内容</string>
 
 </resources>

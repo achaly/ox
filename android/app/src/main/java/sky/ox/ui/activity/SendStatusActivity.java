@@ -243,6 +243,12 @@ public class SendStatusActivity extends BaseActivity {
 
             String title = titleText.getText().toString();
             String message = contentText.getText().toString();
+            if (TextUtils.isEmpty(title)) {
+                ToastUtil.show(R.string.please_input_title);
+            }
+            if (TextUtils.isEmpty(message)) {
+                ToastUtil.show(R.string.please_input_message);
+            }
             Status status = null;
 
             switch (statusType) {
@@ -271,7 +277,8 @@ public class SendStatusActivity extends BaseActivity {
                     public void onSuccess(Object object) {
                         ToastUtil.show(R.string.send_status_successful);
                         LogUtils.d("sendStatus onSuccess");
-                        // TODO: 6/24/16
+
+                        finish();
                     }
 
                     @Override

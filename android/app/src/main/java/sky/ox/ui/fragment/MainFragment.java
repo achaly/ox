@@ -98,23 +98,6 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             }
         });
 
-//        StatusHelper.getAllStatus(null, InboxType.ALL, new Callback() {
-//            @Override
-//            public void onSuccess(Object object) {
-//                List<Status> statuses = (List<Status>) object;
-//                LogUtils.d("object size %d", statuses.size());
-//                adapter.setData(statuses);
-//
-//                swipeContainer.setRefreshing(false);
-//            }
-//
-//            @Override
-//            public void onFailed(int code, String message) {
-//                ToastUtil.show(R.string.get_data_failed);
-//
-//                swipeContainer.setRefreshing(false);
-//            }
-//        });
     }
 
     @Override
