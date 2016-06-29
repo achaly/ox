@@ -127,8 +127,4 @@ public class StorageHelper {
         return intent;
     }
 
-    public static String transformImageUrl(String url, int longEdge, int shortEdge) {
-        return String.format(Locale.US, "%s?imageView2/%d/w/%d/h/%d", url, 0, longEdge, shortEdge);
-    }
-
 }

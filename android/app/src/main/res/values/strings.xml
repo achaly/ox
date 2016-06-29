@@ -9,7 +9,7 @@
     <string name="login_text">登录</string>
     <string name="register_name">注册</string>
     <string name="forget_pwd_name">忘记密码</string>
-    <string name="input_user_name">用户名</string>
+    <string name="input_user_name">邮箱</string>
     <string name="input_user_pwd">密码</string>
     <string name="not_implement">暂未实现</string>
     <string name="login_success_text">登录成功</string>
@@ -49,5 +49,16 @@
     <string name="about">关于</string>
     <string name="please_input_title">请输入题目</string>
     <string name="please_input_message">请输入内容</string>
+    <string name="input_user_pwd_again">确认密码</string>
+    <string name="upload_avatar_btn">点击上传头像</string>
+    <string name="please_input_pwd">请输入密码</string>
+    <string name="pwd_not_equal_pwd_again">两次输入密码不一致</string>
+    <string name="please_input_username">请输入用户名</string>
+    <string name="please_select_avatar">请选择一张图片作为头像</string>
+    <string name="register_successful">注册成功</string>
+    <string name="register_failed">注册失败</string>
+    <string name="tutorial_main_tab">在这里可以欣赏其他人的作品哟~</string>
+    <string name="tutorial_work_tab">在这里可以发表和查看自己的作品哦~</string>
+    <string name="tutorial_self_tab">这里可以查看个人信息~</string>
 
 </resources>

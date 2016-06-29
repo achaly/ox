@@ -1,6 +1,7 @@
 package sky.ox.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.widget.ImageView;
@@ -8,6 +9,9 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import sky.ox.App;
+import sky.ox.config.WorkItemConfig;
+import sky.ox.helper.QiniuHelper;
+import sky.ox.helper.StorageHelper;
 
 /**
  * Created by sky on 5/9/16.
@@ -18,6 +22,8 @@ public class ImageLoader {
         if (TextUtils.isEmpty(url)) {
             return;
         }
+
+        url = QiniuHelper.transformImageUrl(url, WorkItemConfig.IMAGE_HEIGHT, WorkItemConfig.IMAGE_WIDTH);
         Picasso.with(context)
                 .load(url)
                 .into(view);

@@ -1,6 +1,7 @@
 package sky.ox.ui.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,9 +12,12 @@ import com.ysyao.bottomtabbar.SelectableBottomTextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import sky.ox.R;
+import sky.ox.tutorial.CustomPresentationPagerFragment;
+import sky.ox.tutorial.TutorialViewHelper;
 import sky.ox.ui.adapter.FragmentAdapter;
+import sky.ox.utils.SPUtil;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements CustomPresentationPagerFragment.OnPageFinishedListener {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -30,7 +34,20 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (savedInstanceState == null) {
+            initTutorial();
+        }
         initViews();
+    }
+
+    private void initTutorial() {
+        CustomPresentationPagerFragment fragment = new CustomPresentationPagerFragment();
+        fragment.setOnPageFinishedListener(this);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
+                android.R.anim.fade_in, android.R.anim.fade_out);
+        fragmentTransaction.replace(android.R.id.content, fragment);
+        fragmentTransaction.commit();
     }
 
     private void initViews() {
@@ -98,5 +115,14 @@ public class MainActivity extends BaseActivity {
                 viewPager.setCurrentItem(2, false);
             }
         });
+    }
+
+    @Override
+    public void onFinished() {
+        if (hasWindowFocus() && !TutorialViewHelper.hasWalkThrough()) {
+            TutorialViewHelper.walkThroughTutorial(mainTab, getString(R.string.tutorial_main_tab),
+                    worksTab, getString(R.string.tutorial_work_tab),
+                    selfTab, getString(R.string.tutorial_self_tab));
+        }
     }
 }

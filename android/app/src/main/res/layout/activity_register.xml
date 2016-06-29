@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_80_transparent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <EditText
+            android:id="@+id/input_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_user_name"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/input_user_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_user_pwd"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/input_user_pwd_again"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_user_pwd_again"
+            android:inputType="textPassword" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="100dp"
+            android:maxWidth="100dp" />
+
+        <Button
+            android:id="@+id/upload_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_avatar_btn" />
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/register_name" />
+
+    </LinearLayout>
+
+</LinearLayout>

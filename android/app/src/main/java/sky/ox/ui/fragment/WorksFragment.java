@@ -138,6 +138,7 @@ public class WorksFragment extends BaseFragment {
     }
 
     private void getStatusList() {
+        user = AccountHelper.getCurrentUser();
         if (user != null) {
             user.getStatusList(new Callback() {
                 @Override
@@ -151,6 +152,8 @@ public class WorksFragment extends BaseFragment {
                     ToastUtil.show(R.string.get_data_failed);
                 }
             });
+        } else {
+            adapter.setData(null);
         }
     }
 

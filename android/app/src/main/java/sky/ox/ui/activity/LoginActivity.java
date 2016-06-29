@@ -1,5 +1,6 @@
 package sky.ox.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +24,7 @@ import sky.ox.utils.ToastUtil;
  * Created by sky on 6/20/16.
  */
 public class LoginActivity extends BaseActivity {
+    public static final int REQUEST_CODE = 101;
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -48,6 +50,15 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         initViews();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == RegisterActivity.REGISTER_SUCCESSFUL) {
+            finish();
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void initViews() {
@@ -99,8 +110,8 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        inputUserName.setText("test1@163.com");
-        inputUserPwd.setText("test1");
+//        inputUserName.setText("test1@163.com");
+//        inputUserPwd.setText("test1");
     }
 
     private void login() {
@@ -128,6 +139,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void register() {
-
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 }

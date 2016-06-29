@@ -104,10 +104,13 @@ dependencies {
     compile 'com.jaeger.statusbaruitl:library:1.1.0'
 //    compile 'com.jaeger.statusbaruitl:library:1.1.0'
 //    compile 'com.choices.divider:RecyclerView_Divider:1.0.0'
+    compile 'com.cleveroad:slidingtutorial:0.9.5'
+//    compile 'com.github.itzikbraun:TutorialView:0.8.1'
 
     compile 'com.qiniu:happy-dns:0.2.3.+'
     compile 'com.qiniu:qiniu-android-sdk:7.1.+'
     compile 'cn.leancloud.android:avoscloud-sdk:v3.13.+'
 
     testCompile 'junit:junit:4.12'
+    compile project(path: ':TutorialView')
 }

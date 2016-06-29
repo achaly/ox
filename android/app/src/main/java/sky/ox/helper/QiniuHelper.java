@@ -10,6 +10,8 @@ import com.squareup.okhttp.Response;
 
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 import sky.ox.beans.UploadToken;
 import sky.ox.network.NetworkHelper;
 
@@ -45,7 +47,7 @@ public class QiniuHelper {
         return manager;
     }
 
-    static final String TOKEN_URL = "http://10.237.101.122:3000/app/upload/token";
+    static final String TOKEN_URL = "http://skyzp.leanapp.cn/app/upload/token";
     public static UploadToken getUploadToken() {
         try {
             OkHttpClient client = NetworkHelper.getOkHttpClient();
@@ -70,6 +72,13 @@ public class QiniuHelper {
         }
 
         return null;
+    }
+
+    public static String transformImageUrl(String url, int longEdge, int shortEdge) {
+        if (url != null && !url.contains("?imageView2")) {
+            return String.format(Locale.US, "%s?imageView2/%d/w/%d/h/%d", url, 0, longEdge, shortEdge);
+        }
+        return url;
     }
 
 }
