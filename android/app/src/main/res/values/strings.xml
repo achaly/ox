@@ -50,7 +50,7 @@
     <string name="please_input_title">请输入题目</string>
     <string name="please_input_message">请输入内容</string>
     <string name="input_user_pwd_again">确认密码</string>
-    <string name="upload_avatar_btn">点击上传头像</string>
+    <string name="upload_avatar_btn">点击选择头像</string>
     <string name="please_input_pwd">请输入密码</string>
     <string name="pwd_not_equal_pwd_again">两次输入密码不一致</string>
     <string name="please_input_username">请输入用户名</string>
@@ -60,5 +60,6 @@
     <string name="tutorial_main_tab">在这里可以欣赏其他人的作品哟~</string>
     <string name="tutorial_work_tab">在这里可以发表和查看自己的作品哦~</string>
     <string name="tutorial_self_tab">这里可以查看个人信息~</string>
+    <string name="sure_logout">确认退出?</string>
 
 </resources>

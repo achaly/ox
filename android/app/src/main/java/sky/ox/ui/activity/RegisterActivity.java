@@ -102,6 +102,7 @@ public class RegisterActivity extends BaseActivity {
 
         if (uri != null) {
             ImageLoader.load(uri.toString(), image);
+            image.setVisibility(View.VISIBLE);
         }
     }
 

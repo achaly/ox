@@ -1,5 +1,6 @@
 package sky.ox.ui.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -110,8 +111,8 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-//        inputUserName.setText("test1@163.com");
-//        inputUserPwd.setText("test1");
+        inputUserName.setText("hello@163.com");
+        inputUserPwd.setText("123456");
     }
 
     private void login() {
@@ -123,16 +124,18 @@ public class LoginActivity extends BaseActivity {
             return;
         }
 
+        Dialog dialog = showLoadingDialog();
         AccountHelper.login(user, pwd, new Callback() {
             @Override
             public void onSuccess(Object object) {
+                dialog.dismiss();
                 ToastUtil.show(R.string.login_success_text);
-//                AVOSHelper.followTest1Users();
                 finish();
             }
 
             @Override
             public void onFailed(int code, String message) {
+                dialog.dismiss();
                 ToastUtil.show(R.string.login_failed_text);
             }
         });

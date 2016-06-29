@@ -1,9 +1,12 @@
 package sky.ox.ui.fragment;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,17 +87,7 @@ public class SelfFragment extends BaseFragment {
                 this.logout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AccountHelper.logout(new Callback() {
-                            @Override
-                            public void onSuccess(Object object) {
-                                initViews();
-                            }
-
-                            @Override
-                            public void onFailed(int code, String message) {
-
-                            }
-                        });
+                        logout(v.getContext());
                     }
                 });
             }
@@ -141,5 +134,33 @@ public class SelfFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
+    }
+
+    private void logout(Context context) {
+        new AlertDialog.Builder(context)
+                .setTitle(R.string.logout_title)
+                .setMessage(R.string.sure_logout)
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AccountHelper.logout(new Callback() {
+                            @Override
+                            public void onSuccess(Object object) {
+                                initViews();
+                            }
+
+                            @Override
+                            public void onFailed(int code, String message) {
+
+                            }
+                        });
+                    }
+                })
+                .show();
     }
 }

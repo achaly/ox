@@ -1,5 +1,6 @@
 package sky.ox.ui.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -166,6 +167,7 @@ public class SendStatusActivity extends BaseActivity {
         switch (statusType) {
             case StatusType.IMAGE: {
                 ImageLoader.load(uri.toString(), image);
+                image.setVisibility(View.VISIBLE);
                 uploadBtn.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
                 break;
@@ -272,9 +274,11 @@ public class SendStatusActivity extends BaseActivity {
             }
 
             if (status != null) {
+                Dialog dialog = showLoadingDialog();
                 user.sendStatus(status, new Callback() {
                     @Override
                     public void onSuccess(Object object) {
+                        dialog.dismiss();
                         ToastUtil.show(R.string.send_status_successful);
                         LogUtils.d("sendStatus onSuccess");
 
@@ -283,6 +287,7 @@ public class SendStatusActivity extends BaseActivity {
 
                     @Override
                     public void onFailed(int code, String message) {
+                        dialog.dismiss();
                         ToastUtil.show(R.string.send_status_failed);
                         LogUtils.d("sendStatus onFailed");
                     }
